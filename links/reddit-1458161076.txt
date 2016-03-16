@@ -1,0 +1,13 @@
+https://github.com/3Dparallax/insight/
+https://hashnode.com/ama/with-evan-you-cilauq0uu0027tl53gsjkhbmd
+http://v8project.blogspot.de/2016/03/v8-release-50.html
+http://v8project.blogspot.sg/2016/03/experimental-support-for-webassembly.html
+https://github.com/a0viedo/awesome-js-conferences
+http://blog.getify.com/thoughts-on-thunks/
+https://www.educative.io/collection/10370001/160001?ref=rjs
+http://blog.bitovi.com/dependency-injection-for-javascript-modules/
+http://amirrajan.net/nodejs-by-example/
+http://vladimirponomarev.com/blog/youtube-channels-for-a-javascript-developer
+http://vuejs.org/2016/03/14/march-update/
+https://segment.com/blog/the-deep-roots-of-js-fatigue/
+https://www.convective.com/javascript-cross-platform/
