@@ -10,31 +10,30 @@ module.exports = {
   writeToDisk: createFile,
 };
 
-function getFiles(err, data, a) {
-  if (err) throw Error('There were problems with loading the file.');
-}
-
 function createFile(err, data) {
   if (err) throw Error('There were problems with loading the file.');
-  var information = [];
   var $ = cheerio.load(data);
-  $('a').each((i, el) => {
-    if (/title may-blank/.exec(el.attribs.class)) {
-      var url = URL(el.attribs.href);
-      if (url.hostname) {
-        information.push(url.href);
-      } else {
-        information.push('https://www.reddit.com' + url.pathname);
-      }
+  var urls = Array.from($('a'))
+                  .map(getUrlArray('https://www.reddit.com'))
+                  .filter((obj) => obj !== undefined);
 
-      // if (/(javascript|js)/.exec($(el).text().toLowerCase())) {
-      //   information.push(`${$(el).text()} - ${el.attribs.href}`);
-      // }
-    }
-  });
   var timestamps = Math.floor(Date.now() / 1000);
-  // fs.writeFile(`./links/reddit-${timestamps}.txt`, information.join('\n'), writeFile);
-  // open(information[0]);
+  fs.writeFile(`./links/reddit-${timestamps}.txt`, urls.join('\n'), writeFile);
+  open(urls[0]);
+}
+
+function getUrlArray(siteUrl) {
+  return function(el) {
+    if (/title may-blank/.exec(el.attribs.class)) {
+      const url = URL(el.attribs.href);
+      console.log(siteUrl + url.pathname);
+      return (url.hostname) ? url.href : (siteUrl + url.pathname);
+    }
+  };
+}
+
+function getFiles(err, data, a) {
+  if (err) throw Error('There were problems with loading the file.');
 }
 
 function writeFile(err) {
