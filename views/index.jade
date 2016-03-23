@@ -8,14 +8,21 @@ html
     include ./navigation.jade
     h1 Reddit crawller
     div(class="row container-fluid")
-      h2 Main content
-      each val, index in main
+      div(class="col-xs-4 col-md-2")
+        ul(class="list-group")
+          each file in urls
+            li(class="list-group-item")
+              a(href=file.url)= file.name
+          
+      div(class="col-xs-8 col-md-10")
+        h2 Main content
+        each val, index in main
+          div(class="col-xs-6 col-md-6")
+            iframe(src=val)
+            a(href=val class="iframe-links")
         div(class="col-xs-6 col-md-6")
-          iframe(src=val)
-          a(href=val class="iframe-links")
-      div(class="col-xs-6 col-md-6")
-        h2 Second content
-        ul
-          each val, index in links
-            li
-              a(href=val)= val
+          h2 Second content
+          ul
+            each val, index in links
+              li
+                a(href=val)= val
