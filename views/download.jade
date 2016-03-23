@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' rel='stylesheet')
+    link(href='style/main.css' rel='stylesheet')
+
+  body
+    include ./navigation.jade
+    h1 Download files
+    div(class="row container-fluid")
+      div(class="col-md-6")
+        form(action="/download" method="POST")
+          div(class="form-group")
+            select(name="url")
+              each val, index in urls
+                  option(value=index)=index
+          div(class="form-group")
+            input(type="submit" class="btn btn-primary")
