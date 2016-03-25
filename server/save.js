@@ -10,8 +10,7 @@ module.exports = {
   writeToDisk: createFile,
 };
 
-function createFile(err, data) {
-  if (err) throw Error('There were problems with loading the file.');
+function createFile(data, callback) {
   var $ = cheerio.load(data);
   var urls = Array.from($('a'))
                   .map(getUrlArray('https://www.reddit.com'))
@@ -20,6 +19,7 @@ function createFile(err, data) {
   var timestamps = Math.floor(Date.now() / 1000);
   fs.writeFile(`./links/reddit-${timestamps}.txt`, urls.join('\n'), writeFile);
   open(urls[0]);
+  callback();
 }
 
 function getUrlArray(siteUrl) {

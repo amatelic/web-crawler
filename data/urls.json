@@ -1,3 +1,6 @@
 {
-  "reddit": "https://www.reddit.com/r/javascript/"
+  "reddit": {
+      "path": "https://www.reddit.com/r/",
+      "default": "javascript"
+    }
 }

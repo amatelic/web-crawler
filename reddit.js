@@ -5,9 +5,7 @@ const PORT = 4000;
 var app = express();
 
 
-app.use(bodyParser.urlencoded({
-  extended: true,
-}));
+app.use(bodyParser.json());
 app.set('view engine', 'jade');
 app.use(express.static('public'));
 
