@@ -2,14 +2,15 @@ var express = require('express');
 var router = express.Router();
 var table = require('../data/urls.json');
 var rules = require('../data/rules.json');
-var crawl = require('../server/crawler');
-var fs = require('fs');
+var reddit = require('../server/reddit');
+var fs = require('fs-extra');
+var path = require('path');
 
 router.get('/', function(req, res) {
   fs.readdir('./links', function(err, files) {
     if (err) throw new Error(err);
-    var urls = files.map(createLinks);
-    getLinks(`./links/${files[files.length - 1]}`, (err, first4Links, links) => {
+    var urls = files.reduce(getAllFiles, []);
+    getLinks(`./links/${files[urls.length - 1]}`, (err, first4Links, links) => {
       if (err) throw new Error(err);
       res.render('index', {first4Links, links, urls});
     });
@@ -17,6 +18,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/download', function(req, res) {
+  console.log(table);
   res.render('download', {urls: table});
 });
 
@@ -24,30 +26,35 @@ router.post('/download', function(req, res) {
   var site = req.body.url;
   if (table[site]) {
     var query = req.body.query || table[site].default;
-    var url = table[site].path + query;
-    crawl(url, function(err) {
-      if (err) res.json('error');
+    reddit(query, function(error, data) {
+      if (error) {
+        res.json('There was a problem');
+      }
 
-      res.json('success');
+      res.json('The filew was downloaded!');
     });
   } else {
     res.json('The url is not correct');
   }
 });
 
-router.get('/:id', function(req, res) {
+router.get('/data/:id', function(req, res) {
   fs.readdir('./links', function(err, files) {
     if (err) throw new Error(err);
-    var urls = files.map(createLinks);
-    getLinks(`./links/reddit-${req.originalUrl.slice(1)}.txt`, (err, first4Links, links) => {
+    var urls = files.reduce(getAllFiles, []);
+    getLinks(`./links/reddit-${req.originalUrl.slice(6)}.txt`, (err, first4Links, links) => {
       if (err) throw new Error(err);
       res.render('index', {first4Links, links, urls});
     });
   });
 });
 
-function createLinks(e, index) {
-  return {name: `reddit-${index}`, url: e.slice(7, -4)};
+function getAllFiles(collection, files, index) {
+  if (path.extname(files) === '.txt') {
+    collection.push({name: `reddit-${index}`, url: files.slice(7, -4)});
+  }
+
+  return collection;
 }
 
 function getLinks(path, callback) {

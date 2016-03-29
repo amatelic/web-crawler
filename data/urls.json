@@ -1,6 +1,6 @@
 {
   "reddit": {
       "path": "https://www.reddit.com/r/",
-      "default": "javascript"
+      "default": ["javascript", "node"]
     }
 }
