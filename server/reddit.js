@@ -7,7 +7,7 @@ function reddit(params, callback) {
   var params = params || '';
   var url = 'https://www.reddit.com/r/' + params;
   var dir = (params) ? '-' + params : '';
-  var path = `./links/reddit${dir}/reddit-${Math.floor(Date.now() / 1000)}`;
+  var path = `./links/reddit${dir}/reddit-${Math.floor(Date.now() / 1000)}.txt`;
   crawler(url)
     .then((html) => {
       return Promise.all(

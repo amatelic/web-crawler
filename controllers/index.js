@@ -6,11 +6,14 @@ var reddit = require('../server/reddit');
 var fs = require('fs-extra');
 var path = require('path');
 
+var mainDirectory = './links/reddit-javascript';
+
 router.get('/', function(req, res) {
-  fs.readdir('./links', function(err, files) {
+  fs.readdir(mainDirectory, function(err, files) {
     if (err) throw new Error(err);
     var urls = files.reduce(getAllFiles, []);
-    getLinks(`./links/${files[urls.length - 1]}`, (err, first4Links, links) => {
+    console.log(files);
+    getLinks(`${mainDirectory}/${files[urls.length - 1]}`, (err, first4Links, links) => {
       if (err) throw new Error(err);
       res.render('index', {first4Links, links, urls});
     });
@@ -39,10 +42,10 @@ router.post('/download', function(req, res) {
 });
 
 router.get('/data/:id', function(req, res) {
-  fs.readdir('./links', function(err, files) {
+  fs.readdir(mainDirectory, function(err, files) {
     if (err) throw new Error(err);
     var urls = files.reduce(getAllFiles, []);
-    getLinks(`./links/reddit-${req.originalUrl.slice(6)}.txt`, (err, first4Links, links) => {
+    getLinks(`${mainDirectory}/reddit-${req.originalUrl.slice(6)}.txt`, (err, first4Links, links) => {
       if (err) throw new Error(err);
       res.render('index', {first4Links, links, urls});
     });
@@ -53,7 +56,6 @@ function getAllFiles(collection, files, index) {
   if (path.extname(files) === '.txt') {
     collection.push({name: `reddit-${index}`, url: files.slice(7, -4)});
   }
-
   return collection;
 }
 

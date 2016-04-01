@@ -16,6 +16,8 @@ app.listen(PORT, function() {
   console.log(`Crawler app is running on port ${PORT}!`);
 });
 
-var dailyJavascriptNews = new CronJob('00 00 12 * * 1-5', function() { //21.12 from monday to friday
+var dailyJavascriptNews = new CronJob('00 00 24 * * *', function() { //21.12 from monday to friday
   reddit('javascript', () => { console.log('working'); });
 }, true);
+
+dailyJavascriptNews.start();
