@@ -1,7 +1,8 @@
-node_modules
 public/dep
 public/dep/fetch
 test12.txt
 test51.txt
 test57.txt
 links
+backup
+node_modules
