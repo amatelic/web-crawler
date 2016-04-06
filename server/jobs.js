@@ -2,14 +2,22 @@ var fs = require('fs-extra');
 var util = require('util');
 var async = require('async');
 var path = './links';
+var _ = require('underscore');
+var archive  = './archive/';
+
 module.exports = {
   weeklyCleaning: function() {
+    var links = new Set();
     readAllByType(path, 'directory', (err, dir) => {
       fs.readdir(dir[0], (err, files) => {
         files = files.map(d => `${dir[0]}/${d}`);
         async.map(files, fs.readFile, (err, data) => {
-          var file = data.join().toString();
-          fs.writeFile(`${dir[0]}/test.txt`, file, () => console.log('file was saved'));
+          var links = data.toString().split('\r\n');
+          var file = _.uniq(links);
+          fs.outputFile(`${archive}/${Math.floor(Date.now() / 1000)}.txt`, file.join('\n'), function(err) {
+            console.log('file was saved');
+            async.map(files, fs.unlink, (err, data) => { console.log('Files were deleted'); });
+          });
         });
       });
     });

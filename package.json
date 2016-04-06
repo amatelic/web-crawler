@@ -17,6 +17,7 @@
     "log": "^1.4.0",
     "open": "0.0.5",
     "request": "^2.65.0",
+    "underscore": "^1.8.3",
     "url-parse": "^1.0.5"
   },
   "author": "Anže Matelič <amatelic93@gmail.com>",

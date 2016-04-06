@@ -2,7 +2,7 @@ var reddit = require('./server/reddit');
 var bodyParser = require('body-parser');
 var express = require('express');
 var jobs = require('./server/cronJobs');
-var j = require('./server/jobs.js')
+var j = require('./server/jobs.js');
 const PORT = 4000;
 var app = express();
 
@@ -16,5 +16,5 @@ app.listen(PORT, function() {
   console.log(`Crawler app is running on port ${PORT}!`);
 });
 
-jobs.startAll();
-j.weeklyCleaning();
+// jobs.startAll();
+// j.weeklyCleaning();
