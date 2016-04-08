@@ -1,8 +1,10 @@
+#!/usr/bin/env casperjs
 var reddit = require('./server/reddit');
 var bodyParser = require('body-parser');
 var express = require('express');
 var jobs = require('./server/cronJobs');
 var j = require('./server/jobs.js');
+var reddit = require('./server/reddit');
 const PORT = 4000;
 var app = express();
 

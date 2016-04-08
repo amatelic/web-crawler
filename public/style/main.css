@@ -3,10 +3,9 @@ body{
 }
 .slide-show{
   display: flex;
-  width: 2000px;
+  width: 1000px;
   overflow: hidden;
   position: relative;
-  pointer-events: none
 }
 .iframe-links {
   position: absolute;
@@ -17,8 +16,14 @@ body{
   left: 25px;
   position: relative;
 }
-iframe {
-  width: 1280px;
+.slide-show > a{
+  padding: 0;
+  margin: 0;
+  left: 0;
+  display: inline-block;
+}
+img {
+  width: auto;
   height: 600px;
 }
 .hidden {

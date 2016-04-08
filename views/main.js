@@ -1,14 +1,14 @@
 var slideShow = document.querySelector('.slide-show');
-var iframes = Array.from(document.querySelectorAll('iframe'));
-var width = slideShow.parentNode.clientWidth;
-var sliderWidth = iframes.length * width;
+var images = Array.from(document.querySelectorAll('img'));
+var width = 1005;
+var sliderWidth = images.length * width;
 slideShow.setAttribute('style', `width:${sliderWidth}px`);
-iframes.forEach((iframe) => {
-  iframe.setAttribute('style', `width:${width}px`);
+images.forEach((image) => {
+  // image.setAttribute('style', `width:${950}px`);
 });
 var count = 0;
 setInterval(() => {
-  count = count % iframes.length;
+  count = count % images.length;
   count++;
   slideShow.setAttribute('style', `left:-${width * count}px;width:${sliderWidth}px;`);
-}, 2500);
+}, 1000);

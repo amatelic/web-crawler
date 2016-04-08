@@ -18,8 +18,8 @@ html
         div(class="col-md-10" style="overflow:scroll;")
           div(class="slide-show")
             each val, index in first4Links
-              iframe(src=val sandbox="")
               a(href=val class="iframe-links")
+                img(src="/images/" + index + ".jpg")
         div(class="col-xs-10 col-md-2")
           h3 List first four:
           ul(class="list-group")

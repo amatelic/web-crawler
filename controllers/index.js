@@ -5,7 +5,6 @@ var rules = require('../data/rules.json');
 var reddit = require('../server/reddit');
 var fs = require('fs-extra');
 var path = require('path');
-
 var mainDirectory = './links/reddit-javascript';
 
 router.get('/', function(req, res) {
@@ -13,6 +12,12 @@ router.get('/', function(req, res) {
     if (err) throw new Error(err);
     var urls = files.reduce(getAllFiles, []);
     console.log(files);
+
+    if (files.length === 0) {
+      res.render('empty');
+      return;
+    }
+
     getLinks(`${mainDirectory}/${files[urls.length - 1]}`, (err, first4Links, links) => {
       if (err) throw new Error(err);
       res.render('index', {first4Links, links, urls});
@@ -21,7 +26,6 @@ router.get('/', function(req, res) {
 });
 
 router.get('/download', function(req, res) {
-  console.log(table);
   res.render('download', {urls: table});
 });
 
@@ -66,7 +70,7 @@ function getLinks(path, callback) {
     var links = file.split('\n');
     var main = links.filter((link) => {
       return link.match(rules.blockedSites) === null;
-    }).splice(-4);
+    });
 
     callback(null, main, links);
   });
