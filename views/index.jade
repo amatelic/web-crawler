@@ -19,13 +19,7 @@ html
           div(class="slide-show")
             each val, index in first4Links
               a(href=val class="iframe-links")
-                img(src="/images/" + index + ".jpg")
-        div(class="col-xs-10 col-md-2")
-          h3 List first four:
-          ul(class="list-group")
-            each val, index in first4Links
-              li(class="list-group-item")
-                a(href=val)= val.split('/')[2] 
+                img(src="/images/" + (index + 1) + ".jpg")
         div(class="col-xs-6 col-md-6")
           h2 Second content
           ul

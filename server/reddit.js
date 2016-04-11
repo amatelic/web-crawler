@@ -18,14 +18,14 @@ function reddit(params, callback) {
           .filter(filterbyClass('title may-blank'))
           .map(updateRelativeUrls(url)));
     }).then((body) => {
-      var images = body.filter((url) =>  url.search('reddit') === -1)
-        .forEach((url, index) => {
-          const ls = exec('casperjs ./server/downlaodImages.js --url="' + url + '" --name="' + index + '"', function(err, stdout, stderr) {
-            err && console.log(err);
-            stderr && console.log(stderr.toString());
-            stdout && console.log(stdout.toString());
-          });
-        });
+      var images = body.filter((url) =>  url.search('reddit') === -1);
+      var args = "[\\\"" + images.join('\\",\\"') + "\\\"]";
+      exec('casperjs ./server/downlaodImages.js --urls=\"' + args + '\"', function(err, stdout, stderr) {
+        err && console.log(err);
+        stderr && console.log(stderr.toString());
+        stdout && console.log(stdout.toString());
+      });
+
       writeToDisk(path, body.join('\r\n'), callback);
     });
 }

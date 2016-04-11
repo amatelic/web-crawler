@@ -9,6 +9,6 @@ images.forEach((image) => {
 var count = 0;
 setInterval(() => {
   count = count % images.length;
-  count++;
   slideShow.setAttribute('style', `left:-${width * count}px;width:${sliderWidth}px;`);
-}, 1000);
+  ++count;
+}, 500);
