@@ -3,10 +3,8 @@ var count = 0;
 
 casper.start();
 if (casper.cli.has('urls')) {
-  console.log(casper.cli.get('urls'))
   var urls = JSON.parse(casper.cli.get('urls'));
   casper.eachThen(urls, function(response) {
-    console.log(response.data)
     this.thenOpen(response.data, function(response) {
       this.capture('public/images/' + (++count) + '.jpg', {
         top: 0,

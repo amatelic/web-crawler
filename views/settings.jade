@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' rel='stylesheet')
+    link(href='../style/main.css' rel='stylesheet')
+
+  body
+    include ./navigation.jade
+    div(class="row container-fluid")
+      div(class="col-md-10")
+        h2 All cron jobs
+        table(class="table table-striped")
+          thead
+            tr
+              td Name of cron job
+              td Status of cron job
+              td Switch for cron job
+          tbody
+            each job in jobs
+              tr
+                td=job.name
+                td
+                  if job.status
+                    span(class="label label-success") Active
+                  else 
+                    span(class="label label-danger") Disabled
+                td
+                  button(class="btn btn-primary disabled" disable) Toggle
